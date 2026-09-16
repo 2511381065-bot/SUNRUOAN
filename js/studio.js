@@ -8,8 +8,15 @@
   "use strict";
 
   // ---------- 状态 ----------
-  var data = Store.load();           // 当前编辑中的数据（来自正式 key）
-  var savedData = Store.load();      // 最近一次「保存」的基准
+  // 编辑基准：预览键保存的是「最近一次编辑」状态（每次改动即写入），比正式键 / 服务器更新。
+  // 开工坊时优先取预览键，避免用户最新的未保存改动（如上传的图片）被覆盖丢失。
+  var data = (function () {
+    try {
+      if (localStorage.getItem("portfolio_preview_v1")) return Store.loadPreview();
+    } catch (e) {}
+    return Store.load();
+  })();
+  var savedData = Store.load();      // 最近一次「保存」的基准（正式键）
   var history = [JSON.parse(JSON.stringify(data))];
   var hisIndex = 0;
   var commitTimer = null;
@@ -755,14 +762,22 @@
   Store.savePreview(data);
   updateDirty();
 
-  // 开发环境从服务器加载共享数据（任意浏览器打开都读到同一份，可继续编辑）
-  Store.fetchServerData().then(function (serverData) {
-    if (!serverData) return;
-    data = serverData;
-    savedData = JSON.parse(JSON.stringify(serverData));
-    applyData(data, false);
-    toast("已从服务器加载站点数据");
-  }).catch(function () {
-    // 非 dev 服务（如 file:// 直接打开）无法访问 /api/data，继续使用本地数据
-  });
+  // 本地已有数据时优先使用本地数据，避免启动时被服务器数据覆盖，
+  // 导致「未同步到服务器的改动」（如上传的图片）丢失；仅当本地无数据时才从服务器加载。
+  var hasLocalData = (function () {
+    try {
+      return !!localStorage.getItem("portfolio_site_v1") || !!localStorage.getItem("portfolio_preview_v1");
+    } catch (e) { return false; }
+  })();
+  if (!hasLocalData) {
+    Store.fetchServerData().then(function (serverData) {
+      if (!serverData) return;
+      data = serverData;
+      savedData = JSON.parse(JSON.stringify(serverData));
+      applyData(data, false);
+      toast("已从服务器加载站点数据");
+    }).catch(function () {
+      // 非 dev 服务（如 file:// 直接打开）无法访问 /api/data，继续使用默认数据
+    });
+  }
 })();

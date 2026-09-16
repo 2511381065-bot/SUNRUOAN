@@ -7,7 +7,7 @@
   },
   "theme": "minimal-light",
   "themeOverrides": {
-    "--accent": "#3b82f6"
+    "--accent": "#994da3"
   },
   "particle": {
     "style": "stars",
