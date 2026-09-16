@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>可视化工坊</title>
+  <link rel="stylesheet" href="css/studio.css" />
+</head>
+<body>
+  <div class="studio">
+    <div class="s-top">
+      <div class="s-brand">个人作品集 · 可视化工坊</div>
+      <div class="s-status" id="sStatus">加载中</div>
+      <div class="s-actions">
+        <button id="btnUndo" title="撤销">撤销</button>
+        <button id="btnRedo" title="重做">重做</button>
+        <button id="btnSave" class="primary">保存</button>
+        <button id="btnReset" class="danger">还原默认</button>
+        <button id="btnExport">导出 JSON</button>
+        <button id="btnImport">导入 JSON</button>
+        <button id="btnPackage">打包部署</button>
+        <a class="link" href="index.html" target="_blank">打开前台 ↗</a>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="s-panel">
+        <div class="s-nav">
+          <button class="tab active" data-tab="global">全局设置</button>
+          <button class="tab" data-tab="hero">首页</button>
+          <button class="tab" data-tab="portfolio">作品集</button>
+          <button class="tab" data-tab="projects">项目</button>
+          <button class="tab" data-tab="about">关于我</button>
+          <button class="tab" data-tab="skills">技能栈</button>
+          <button class="tab" data-tab="contact">联系我</button>
+        </div>
+        <div class="s-form" id="sForm"></div>
+      </div>
+      <div class="s-preview">
+        <div class="s-device">
+          <button class="dev active" data-w="100%">桌面</button>
+          <button class="dev" data-w="768px">平板</button>
+          <button class="dev" data-w="375px">手机</button>
+        </div>
+        <div class="s-frame-wrap">
+          <iframe id="previewFrame" src="index.html?preview=1" title="预览"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+  <input type="file" id="fileInput" accept=".json,application/json" style="display:none;" />
+  <input type="file" id="imgFileInput" accept="image/*" style="display:none;" />
+
+  <!-- 图片裁剪弹窗：上传后可框选展示区域 -->
+  <div class="crop-modal" id="cropModal">
+    <div class="crop-box">
+      <div class="crop-head">
+        <span>框选展示区域（可选）</span>
+        <button type="button" class="crop-x" id="cropClose" title="关闭">×</button>
+      </div>
+      <div class="crop-ratios" id="cropRatios"></div>
+      <div class="crop-stage" id="cropStage">
+        <img id="cropImg" alt="裁剪预览" draggable="false" />
+        <canvas id="cropPrevCanvas" class="crop-preview" style="display:none;"></canvas>
+        <div class="crop-area" id="cropArea"><span class="crop-grip" id="cropGrip"></span></div>
+      </div>
+      <div class="crop-foot">
+        <button type="button" id="cropUndo" disabled>撤销</button>
+        <button type="button" id="cropPreview">预览</button>
+        <span class="crop-spacer"></span>
+        <button type="button" id="cropSkip">直接用原图</button>
+        <button type="button" id="cropOk" class="primary">确认裁剪</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js?v=2"></script>
+  <script src="js/store.js?v=2"></script>
+  <script src="js/studio.js?v=2"></script>
+</body>
+</html>

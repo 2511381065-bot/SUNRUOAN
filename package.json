@@ -1,0 +1,13 @@
+{
+  "name": "portfolio-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "个人作品集网站：纯前端 + 零依赖 Node 开发/构建流程",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "node scripts/build.js"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}

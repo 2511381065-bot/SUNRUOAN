@@ -1,0 +1,8 @@
+# 构建产物（可由 npm run build 重新生成）
+dist/
+
+# 依赖（本项目零依赖，预留）
+node_modules/
+
+# 归档的无关文件（贪吃蛇、旧 skills、旧计划等，不入库）
+_archive/

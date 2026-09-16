@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>个人作品集</title>
+  <link rel="stylesheet" href="css/style.css?v=2" />
+</head>
+<body>
+  <canvas id="particles"></canvas>
+  <div id="loader"><div class="l-name" id="lName">加载中</div></div>
+  <div id="app">
+    <header id="header">
+      <a class="logo" href="#/home"><span id="logoName"></span><span>.</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="菜单">☰</button>
+      <nav id="nav"></nav>
+    </header>
+    <main id="view"></main>
+  </div>
+  <button id="toTop" aria-label="回到顶部">↑</button>
+  <div class="lightbox" id="lightbox">
+    <div class="lb-box">
+      <div id="lbMedia"></div>
+      <div class="lb-meta">
+        <div><h3 id="lbTitle"></h3><p id="lbDesc"></p></div>
+        <button class="lb-close" id="lbClose" aria-label="关闭">×</button>
+      </div>
+    </div>
+  </div>
+  <script src="js/data.js?v=2"></script>
+  <script src="js/store.js?v=2"></script>
+  <script src="js/particles.js?v=2"></script>
+  <script src="js/renderer.js?v=2"></script>
+  <script src="js/main.js?v=2"></script>
+</body>
+</html>
